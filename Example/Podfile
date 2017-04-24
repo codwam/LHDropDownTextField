@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'LHDropDownTextField_Example' do
+  pod 'LHDropDownTextField', :path => '../'
+
+  target 'LHDropDownTextField_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
