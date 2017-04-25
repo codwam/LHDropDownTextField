@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-为 UITextField 扩展 UIPickerView、UIDatePicker功能。
+  为 UITextField 扩展 UIPickerView、UIDatePicker 功能。
                        DESC
 
   s.homepage         = 'https://github.com/codwam/LHDropDownTextField'
@@ -33,7 +33,7 @@ Pod::Spec.new do |s|
   s.source_files = 'LHDropDownTextField/Classes/**/*'
 
   # s.resource_bundles = {
-  #   'LHDropDownTextField' => ['LHDropDownTextField/Assets/*.png']
+  #   'podTestLibrary' => ['podTestLibrary/Assets/*.png']
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
