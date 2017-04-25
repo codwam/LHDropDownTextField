@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'LHDropDownTextField'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of LHDropDownTextField.'
+  s.summary          = '为 UITextField 增加 picker 功能。'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+为 UITextField 扩展 UIPickerView、UIDatePicker功能。
                        DESC
 
   s.homepage         = 'https://github.com/codwam/LHDropDownTextField'
@@ -31,7 +31,7 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'LHDropDownTextField/Classes/**/*'
-  
+
   # s.resource_bundles = {
   #   'LHDropDownTextField' => ['LHDropDownTextField/Assets/*.png']
   # }

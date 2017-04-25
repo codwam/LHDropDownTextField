@@ -1,25 +1,180 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vdX-D2-hXd">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="ufC-wZ-h7g">
+        <!--DropDown Demo-->
+        <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LHDropDownTextFieldDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
-                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diff Mode:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RA8-HP-CAl">
+                                <rect key="frame" x="15" y="79" width="345" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="none" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1J-IY-4CD">
+                                <rect key="frame" x="15" y="115" width="39" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hea-zt-IhJ" customClass="LHDropDownTextField" customModule="LHDropDownTextField">
+                                <rect key="frame" x="134" y="110.5" width="226" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="dropDownModeAdapter">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kb2-PT-axg">
+                                <rect key="frame" x="15" y="156" width="34.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="89Z-ZQ-248" customClass="LHDropDownTextField" customModule="LHDropDownTextField">
+                                <rect key="frame" x="134" y="151" width="226" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="dropDownModeAdapter">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jf1-qR-iah">
+                                <rect key="frame" x="15" y="197" width="33.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Tq-19-d4m" customClass="LHDropDownTextField" customModule="LHDropDownTextField">
+                                <rect key="frame" x="134" y="192.5" width="226" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="dropDownModeAdapter">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dateAndTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pc1-Jt-eIp">
+                                <rect key="frame" x="15" y="238" width="102.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QHa-CN-byL" customClass="LHDropDownTextField" customModule="LHDropDownTextField">
+                                <rect key="frame" x="134" y="233.5" width="226" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="dropDownModeAdapter">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RhM-WT-HJp">
+                                <rect key="frame" x="15" y="279" width="29" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LO1-U7-Gxw" customClass="LHDropDownTextField" customModule="LHDropDownTextField">
+                                <rect key="frame" x="134" y="274.5" width="226" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="dropDownModeAdapter">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="8Tq-19-d4m" firstAttribute="centerY" secondItem="Jf1-qR-iah" secondAttribute="centerY" id="1F4-9x-NA9"/>
+                            <constraint firstItem="8Tq-19-d4m" firstAttribute="trailing" secondItem="89Z-ZQ-248" secondAttribute="trailing" id="1Iw-NJ-zng"/>
+                            <constraint firstItem="RA8-HP-CAl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="5EM-vd-Eyf"/>
+                            <constraint firstItem="Jf1-qR-iah" firstAttribute="top" secondItem="kb2-PT-axg" secondAttribute="bottom" constant="20" id="9Lz-93-Ys3"/>
+                            <constraint firstItem="RA8-HP-CAl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="9Qh-gk-WXv"/>
+                            <constraint firstItem="QHa-CN-byL" firstAttribute="leading" secondItem="8Tq-19-d4m" secondAttribute="leading" id="D2l-yL-elB"/>
+                            <constraint firstAttribute="trailing" secondItem="Hea-zt-IhJ" secondAttribute="trailing" constant="15" id="DhS-Yq-9q0"/>
+                            <constraint firstItem="kb2-PT-axg" firstAttribute="top" secondItem="F1J-IY-4CD" secondAttribute="bottom" constant="20" id="EHS-3Q-cOD"/>
+                            <constraint firstItem="Pc1-Jt-eIp" firstAttribute="leading" secondItem="Jf1-qR-iah" secondAttribute="leading" id="GFy-sI-fEd"/>
+                            <constraint firstAttribute="trailing" secondItem="RA8-HP-CAl" secondAttribute="trailing" constant="15" id="GGS-Vo-ao0"/>
+                            <constraint firstItem="F1J-IY-4CD" firstAttribute="top" secondItem="RA8-HP-CAl" secondAttribute="bottom" constant="15" id="Hmd-Z8-y9S"/>
+                            <constraint firstItem="LO1-U7-Gxw" firstAttribute="trailing" secondItem="QHa-CN-byL" secondAttribute="trailing" id="IjC-zd-J37"/>
+                            <constraint firstItem="QHa-CN-byL" firstAttribute="trailing" secondItem="8Tq-19-d4m" secondAttribute="trailing" id="Kv2-qi-70I"/>
+                            <constraint firstItem="kb2-PT-axg" firstAttribute="leading" secondItem="F1J-IY-4CD" secondAttribute="leading" id="OzX-GP-ha9"/>
+                            <constraint firstItem="F1J-IY-4CD" firstAttribute="leading" secondItem="RA8-HP-CAl" secondAttribute="leading" id="QGo-fK-Smg"/>
+                            <constraint firstItem="8Tq-19-d4m" firstAttribute="leading" secondItem="89Z-ZQ-248" secondAttribute="leading" id="R6U-Ib-uZC"/>
+                            <constraint firstItem="89Z-ZQ-248" firstAttribute="leading" secondItem="Hea-zt-IhJ" secondAttribute="leading" id="Wv1-eT-as8"/>
+                            <constraint firstItem="89Z-ZQ-248" firstAttribute="centerY" secondItem="kb2-PT-axg" secondAttribute="centerY" id="ZQV-jD-ElA"/>
+                            <constraint firstItem="89Z-ZQ-248" firstAttribute="trailing" secondItem="Hea-zt-IhJ" secondAttribute="trailing" id="ZbU-Vf-R5i"/>
+                            <constraint firstItem="Hea-zt-IhJ" firstAttribute="centerY" secondItem="F1J-IY-4CD" secondAttribute="centerY" id="cpE-L6-gu8"/>
+                            <constraint firstItem="Hea-zt-IhJ" firstAttribute="leading" secondItem="F1J-IY-4CD" secondAttribute="trailing" constant="80" id="d3W-Fp-8RV"/>
+                            <constraint firstItem="LO1-U7-Gxw" firstAttribute="centerY" secondItem="RhM-WT-HJp" secondAttribute="centerY" id="euC-Ri-PoZ"/>
+                            <constraint firstItem="Pc1-Jt-eIp" firstAttribute="top" secondItem="Jf1-qR-iah" secondAttribute="bottom" constant="20" id="hkF-uL-dKp"/>
+                            <constraint firstItem="RhM-WT-HJp" firstAttribute="top" secondItem="Pc1-Jt-eIp" secondAttribute="bottom" constant="20" id="kLI-CM-zYt"/>
+                            <constraint firstItem="LO1-U7-Gxw" firstAttribute="leading" secondItem="QHa-CN-byL" secondAttribute="leading" id="lo0-1i-SHd"/>
+                            <constraint firstItem="Jf1-qR-iah" firstAttribute="leading" secondItem="kb2-PT-axg" secondAttribute="leading" id="qPQ-K2-8dC"/>
+                            <constraint firstItem="QHa-CN-byL" firstAttribute="centerY" secondItem="Pc1-Jt-eIp" secondAttribute="centerY" id="wt3-bb-SqI"/>
+                            <constraint firstItem="RhM-WT-HJp" firstAttribute="leading" secondItem="Pc1-Jt-eIp" secondAttribute="leading" id="zIQ-We-tCZ"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="DropDown Demo" id="pYO-qm-LVQ"/>
+                    <connections>
+                        <outlet property="dateAndTimeTextField" destination="QHa-CN-byL" id="1DT-ew-53d"/>
+                        <outlet property="dateTextField" destination="89Z-ZQ-248" id="bd0-5Y-YaG"/>
+                        <outlet property="noneTextField" destination="Hea-zt-IhJ" id="tdn-eC-31V"/>
+                        <outlet property="textTextField" destination="LO1-U7-Gxw" id="SfJ-bz-AbB"/>
+                        <outlet property="timeTextField" destination="8Tq-19-d4m" id="wT0-Fh-iof"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1056.8" y="123.68815592203899"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="etu-Bw-y4u">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vdX-D2-hXd" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="s8v-tn-LSZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="krj-re-uvn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pdp-tc-p3u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="196" y="124"/>
         </scene>
     </scenes>
 </document>
