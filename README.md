@@ -34,7 +34,7 @@ LHDropDownTextField is available through [CocoaPods](http://cocoapods.org). To i
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "LHDropDownTextField"
+pod 'LHDropDownTextField'
 ```
 
 ## Author

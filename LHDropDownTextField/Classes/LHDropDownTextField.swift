@@ -41,7 +41,7 @@ public enum LHProposedSelection : Int {
 /**
  Integer constant to use with `selectedRow` property, this will select `Select` option in optional textField.
  */
-let LHOptionalTextFieldIndex: Int = -1
+public let LHOptionalTextFieldIndex: Int = -1
 
 /**
  Drop down text field delegate.
@@ -134,7 +134,8 @@ open class LHDropDownTextField: UITextField {
     ///----------------------
     
     fileprivate var _optionalItemText: String?
-    @IBInspectable var optionalItemText: String {
+    @IBInspectable
+    open var optionalItemText: String {
         get {
             if _optionalItemText == nil {
                 _optionalItemText = NSLocalizedString("Select", tableName: nil, bundle: Bundle.main, value: "", comment: "")
@@ -154,7 +155,8 @@ open class LHDropDownTextField: UITextField {
         }
     }
     
-    @IBInspectable var isOptionalDropDownAdapter: Int {
+    @IBInspectable
+    var isOptionalDropDownAdapter: Int {
         get {
             return self.isOptionalDropDown ? 1 : 0
         }
@@ -244,7 +246,8 @@ open class LHDropDownTextField: UITextField {
         }
     }
     
-    @IBInspectable var adjustPickerLabelFontSizeWidthAdapter: Int {
+    @IBInspectable
+    var adjustPickerLabelFontSizeWidthAdapter: Int {
         get {
             return self.adjustPickerLabelFontSizeWidth ? 1 : 0
         }
