@@ -1,0 +1,21 @@
+
+/* Class = "UILabel"; text = "none"; ObjectID = "F1J-IY-4CD"; */
+"F1J-IY-4CD.text" = "none";
+
+/* Class = "UILabel"; text = "time"; ObjectID = "Jf1-qR-iah"; */
+"Jf1-qR-iah.text" = "time";
+
+/* Class = "UILabel"; text = "dateAndTime"; ObjectID = "Pc1-Jt-eIp"; */
+"Pc1-Jt-eIp.text" = "dateAndTime";
+
+/* Class = "UILabel"; text = "Diff Mode:"; ObjectID = "RA8-HP-CAl"; */
+"RA8-HP-CAl.text" = "Diff Mode:";
+
+/* Class = "UILabel"; text = "text"; ObjectID = "RhM-WT-HJp"; */
+"RhM-WT-HJp.text" = "text";
+
+/* Class = "UILabel"; text = "date"; ObjectID = "kb2-PT-axg"; */
+"kb2-PT-axg.text" = "date";
+
+/* Class = "UINavigationItem"; title = "DropDown Demo"; ObjectID = "pYO-qm-LVQ"; */
+"pYO-qm-LVQ.title" = "DropDown Demo";

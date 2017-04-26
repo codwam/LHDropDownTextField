@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LHDropDownTextField'
-  s.version          = '0.2.0'
+  s.version          = '0.3.0'
   s.summary          = '为 UITextField 增加 picker 功能。'
 
 # This description is used to generate tags and improve search results.

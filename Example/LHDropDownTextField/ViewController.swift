@@ -58,12 +58,10 @@ final class ViewController: UIViewController {
         }
         
         self.textTextField.itemList = [
-            "1 Year Old",
-            "2 Years Old",
-            "3 Years Old",
-            "4 Years Old",
-            "5 Years Old",
-            "6 Years Old"
+            "You",
+            "Are",
+            "a",
+            "Pig"
         ]
     }
     

@@ -83,7 +83,7 @@ open class LHDropDownTextField: UITextField {
             super.delegate = newValue
         }
     }
-    // FIXME: Can't override property type???
+
     fileprivate var delegateAdapter: LHDropDownTextFieldDelegate? {
         if self.delegate != nil && !(self.delegate is LHDropDownTextFieldDelegate) {
             assert(false, "delegate must be LHDropDownTextFieldDelegate")
@@ -95,26 +95,10 @@ open class LHDropDownTextField: UITextField {
     
     open var dropDownMode = LHDropDownMode.none {
         didSet {
-            switch self.dropDownMode {
-            case .none:
-                self.inputView = nil
-            case .date, .time, .dateAndTime:
-                self.datePickerMode = self.dropDownMode.transToUIDatePickerMode()
-                self.inputView = self.dateTimePicker
-                
-                if !self.isOptionalDropDown {
-                    self.date = self.dateTimePicker.date
-                }
-            case .text:
-                self.inputView = self.pickerView
-                
-                self.selectedRow(self.selectedRow, animated: true)
-            }
+            self.updateDropDownMode()
         }
     }
     
-    // Don't set this value in code!!! I try to set private or fileprivate then ib has no effect
-    // FIXME: @IBInspectable set to dropDownMode has no effect???
     // http://stackoverflow.com/questions/27432736/how-to-create-an-ibinspectable-of-type-enum
     @IBInspectable var dropDownModeAdapter: Int {
         get {
@@ -214,7 +198,8 @@ open class LHDropDownTextField: UITextField {
     
     open var itemList: [String]? {
         didSet {
-            //Refreshing pickerView
+            self.dropDownMode = .text
+            
             self.updateOptionsList()
             
             self.selectedRow(self.selectedRow, animated: false)
@@ -227,15 +212,15 @@ open class LHDropDownTextField: UITextField {
     
     open var selectedRow: Int {
         get {
-            var selectedRow = self.pickerView.selectedRow(inComponent: 0)
+            var selectedRow: Int
             if self.isOptionalDropDown {
-                selectedRow -= 1
+                selectedRow = LHOptionalTextFieldIndex
+            } else {
+                selectedRow = self.pickerView.selectedRow(inComponent: 0)
             }
             return selectedRow
         }
         set {
-            self.selectedRow = newValue
-            
             self.selectedRow(newValue, animated: false)
         }
     }
@@ -318,28 +303,21 @@ open class LHDropDownTextField: UITextField {
             case .date, .time, .dateAndTime:
                 self.dateTimePicker.datePickerMode = self.datePickerMode
                 
-                var dateStyle: DateFormatter.Style?
-                var timeStyle: DateFormatter.Style?
+                var dateStyle: DateFormatter.Style = .none
+                var timeStyle: DateFormatter.Style = .none
                 switch self.datePickerMode {
                 case .time:
-                    dateStyle = .none
                     timeStyle = .short
                 case .date:
                     dateStyle = .short
-                    timeStyle = .none
                 case .dateAndTime:
                     dateStyle = .short
                     timeStyle = .short
                 case .countDownTimer:
-                    dateStyle = .none
-                    timeStyle = .none
+                    break
                 }
-                if let dateStyle = dateStyle {
-                    _dropDownDateTimeFormatter?.dateStyle = dateStyle
-                }
-                if let timeStyle = timeStyle {
-                    _dropDownDateTimeFormatter?.timeStyle = timeStyle
-                }
+                self.dropDownDateTimeFormatter?.dateStyle = dateStyle
+                self.dropDownDateTimeFormatter?.timeStyle = timeStyle
             default:
                 assert(false, "datePickerMode only uses for (.date, .time, .dateAndTime) mode")
             }
@@ -365,7 +343,6 @@ open class LHDropDownTextField: UITextField {
             case .date, .time, .dateAndTime:
                 if _dropDownDateTimeFormatter == nil {
                     _dropDownDateTimeFormatter = DateFormatter()
-                    self.datePickerMode = self.dropDownMode.transToUIDatePickerMode()
                 }
                 return _dropDownDateTimeFormatter
             default:
@@ -420,7 +397,7 @@ open class LHDropDownTextField: UITextField {
     // MARK: - Override
     
     override open func caretRect(for position: UITextPosition) -> CGRect {
-        if self.dropDownMode == .text {
+        if self.dropDownMode == .none {
             return super.caretRect(for: position)
         }
         return .zero
@@ -446,8 +423,10 @@ open class LHDropDownTextField: UITextField {
             return
         }
         if self.isOptionalDropDown {
+            var selectRow = row
             if (row == LHOptionalTextFieldIndex) {
                 super.text = ""
+                selectRow = 0
             } else {
                 if row == 0 {
                     super.text = ""
@@ -457,7 +436,7 @@ open class LHDropDownTextField: UITextField {
                     super.text = itemList[row - 1]
                 }
             }
-            self.pickerView.selectRow(row, inComponent: 0, animated: animated)
+            self.pickerView.selectRow(selectRow, inComponent: 0, animated: animated)
         } else {
             if let itemListUI = self.itemListUI {
                 super.text = itemListUI[row]
@@ -479,6 +458,24 @@ open class LHDropDownTextField: UITextField {
     }
     
     // MARK: - Private Methods
+    
+    fileprivate func updateDropDownMode() {
+        switch self.dropDownMode {
+        case .none:
+            self.inputView = nil
+        case .date, .time, .dateAndTime:
+            self.datePickerMode = self.dropDownMode.transToUIDatePickerMode()
+            self.inputView = self.dateTimePicker
+            
+            if !self.isOptionalDropDown {
+                self.date = self.dateTimePicker.date
+            }
+        case .text:
+            self.inputView = self.pickerView
+            
+            self.selectedRow(self.selectedRow, animated: true)
+        }
+    }
     
     fileprivate func updateOptionsList() {
         if self.isOptionalDropDown {
