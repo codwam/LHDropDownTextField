@@ -206,7 +206,15 @@ open class LHDropDownTextField: UITextField {
         }
     }
     
-    open var itemListView: [UIView]?
+    open var itemListView: [UIView]? {
+        didSet {
+            self.dropDownMode = .text
+            
+            self.updateOptionsList()
+            
+            self.selectedRow(self.selectedRow, animated: false)
+        }
+    }
     
     open var itemListUI: [String]?
     
@@ -372,7 +380,7 @@ open class LHDropDownTextField: UITextField {
         return picker
     }()
     
-    var pickerItemList: [String]?
+    var pickerItemList: [Any]?
     
     // MARK: - Init
     
@@ -405,17 +413,18 @@ open class LHDropDownTextField: UITextField {
     
     // MARK: - Event Response
     
-    @objc fileprivate func dateTimeChanged(_ sender: UIDatePicker) {
+    @objc
+    fileprivate func dateTimeChanged(_ sender: UIDatePicker) {
         self.setSelectedItem(self.dropDownDateTimeFormatter?.string(from: sender.date), animated: true, shouldNotifyDelegate: true)
     }
     
     // MARK: - Public Methods
     
-    func selectedItem(_ selectedItem: String?, animated: Bool) {
+    open func selectedItem(_ selectedItem: String?, animated: Bool) {
         self.setSelectedItem(selectedItem, animated: animated, shouldNotifyDelegate: false)
     }
     
-    func selectedRow(_ row: Int, animated: Bool) {
+    open func selectedRow(_ row: Int, animated: Bool) {
         guard let itemList = self.itemList else {
             return
         }
@@ -447,7 +456,7 @@ open class LHDropDownTextField: UITextField {
         }
     }
     
-    func setDate(_ date: Date?, animated: Bool) {
+    open func setDate(_ date: Date?, animated: Bool) {
         switch self.dropDownMode {
         case .date, .time, .dateAndTime:
             // FIXME: date == nil???
@@ -479,9 +488,11 @@ open class LHDropDownTextField: UITextField {
     
     fileprivate func updateOptionsList() {
         if self.isOptionalDropDown {
-            self.pickerItemList = [self.optionalItemText]
             if let itemList = self.itemList {
-                self.pickerItemList?.append(contentsOf: itemList)
+                self.pickerItemList = [self.optionalItemText]
+                self.pickerItemList?.append(itemList)
+            } else if let itemListView = self.itemListView {
+                self.pickerItemList = [itemListView]
             }
         } else {
             switch self.dropDownMode {
@@ -526,7 +537,7 @@ open class LHDropDownTextField: UITextField {
             guard let selectedItem = selectedItem else {
                 return
             }
-            guard let itemListsInternal = self.pickerItemList else {
+            guard let itemListsInternal = self.pickerItemList as? [String] else {
                 return
             }
             guard let index = itemListsInternal.index(of: selectedItem) else {
@@ -584,7 +595,7 @@ extension LHDropDownTextField: UIPickerViewDelegate {
     public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         if let itemListView = self.itemListView, self.itemListView!.count > row {
             // Archiving and Unarchiving is necessary to copy UIView instance.
-            let viewData = NSKeyedArchiver.archivedData(withRootObject: itemListView)
+            let viewData = NSKeyedArchiver.archivedData(withRootObject: itemListView[row])
             let copyOfView = NSKeyedUnarchiver.unarchiveObject(with: viewData) as? UIView
             if copyOfView == nil {
                 assert(false, "Copy view error")
@@ -597,7 +608,7 @@ extension LHDropDownTextField: UIPickerViewDelegate {
                 label?.textAlignment = .center
                 label?.backgroundColor = .clear
             }
-            let text = self.pickerItemList![row]
+            let text = self.pickerItemList![row] as? String
             label?.text = text
             
             if row == 0 && self.isOptionalDropDown {
@@ -621,7 +632,10 @@ extension LHDropDownTextField: UIPickerViewDelegate {
     }
     
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let text = self.pickerItemList![row]
+        guard let pickerItemList = self.pickerItemList as? [String], pickerItemList.count > row else {
+            return
+        }
+        let text = pickerItemList[row]
 
         let canSelect = self.dataSource?.textField?(self, canSelectItem: text) ?? true
 
@@ -642,9 +656,9 @@ extension LHDropDownTextField: UIPickerViewDelegate {
                 break
             }
             
-            while aboveIndex >= 0 || belowIndex < self.pickerItemList!.count {
+            while aboveIndex >= 0 || belowIndex < pickerItemList.count {
                 if aboveIndex >= 0 {
-                    let aboveText = self.pickerItemList![aboveIndex]
+                    let aboveText = pickerItemList[aboveIndex]
                     
                     if (self.dataSource?.textField?(self, canSelectItem: aboveText))! {
                         self.setSelectedItem(aboveText, animated: true, shouldNotifyDelegate: true)
@@ -654,7 +668,7 @@ extension LHDropDownTextField: UIPickerViewDelegate {
                     aboveIndex -= 1
                 }
                 if belowIndex < self.pickerItemList!.count {
-                    let belowText = self.pickerItemList![aboveIndex]
+                    let belowText = pickerItemList[aboveIndex]
                     
                     if (self.dataSource?.textField?(self, canSelectItem: belowText))! {
                         self.setSelectedItem(belowText, animated: true, shouldNotifyDelegate: true)
