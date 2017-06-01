@@ -198,9 +198,11 @@ open class LHDropDownTextField: UITextField {
     
     open var itemList: [String]? {
         didSet {
+            self.updateOptionsList()
+
             self.dropDownMode = .text
             
-            self.updateOptionsList()
+            self.pickerView.reloadAllComponents()
             
             self.selectedRow(self.selectedRow, animated: false)
         }
@@ -208,9 +210,9 @@ open class LHDropDownTextField: UITextField {
     
     open var itemListView: [UIView]? {
         didSet {
-            self.dropDownMode = .text
-            
             self.updateOptionsList()
+
+            self.dropDownMode = .text
             
             self.selectedRow(self.selectedRow, animated: false)
         }
@@ -364,15 +366,13 @@ open class LHDropDownTextField: UITextField {
     
     // MARK: - Private vars
     
-    fileprivate var pickerView: UIPickerView {
-        get {
-            let picker = UIPickerView()
-            picker.showsSelectionIndicator = true
-            picker.delegate = self
-            picker.dataSource = self
-            return picker
-        }
-    }
+    fileprivate lazy var pickerView: UIPickerView = {
+        let picker = UIPickerView()
+        picker.showsSelectionIndicator = true
+        picker.delegate = self
+        picker.dataSource = self
+        return picker
+    }()
     
     fileprivate lazy var dateTimePicker: UIDatePicker = {
         let picker = UIDatePicker()

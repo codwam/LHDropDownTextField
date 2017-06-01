@@ -57,30 +57,41 @@ final class ViewController: UIViewController {
             textField.inputAccessoryView = toolbar
         }
         
+//        self.textTextField.itemList = [
+//            "Test",
+//            "You",
+//            "Are",
+//            "a",
+//            "Pig"
+//        ]
+        
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        indicator.startAnimating()
+        self.textTextField.itemListView = [
+            indicator
+        ]
+    }
+    
+    // MARK: - Event Response
+    
+    @objc
+    fileprivate func doneClicked(_ sender: Any) {
+//        self.view.endEditing(true)
+        
+        print("noneTextField: \(String(describing: noneTextField.selectedItem))")
+        print("dateTextField: \(String(describing: dateTextField.selectedItem))")
+        print("timeTextField: \(String(describing: timeTextField.selectedItem))")
+        print("dateAndTimeTextField: \(String(describing: dateAndTimeTextField.selectedItem))")
+//        print("textTextField: \(String(describing: textTextField.selectedItem))")
+        
+        self.textTextField.itemListView = nil
         self.textTextField.itemList = [
             "You",
             "Are",
             "a",
             "Pig"
         ]
-        
-//        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-//        indicator.startAnimating()
-//        self.textTextField.itemListView = [
-//            indicator
-//        ]
-    }
-    
-    // MARK: - Event Response
-    
-    @objc fileprivate func doneClicked(_ sender: Any) {
-        self.view.endEditing(true)
-        
-        print("noneTextField: \(String(describing: noneTextField.selectedItem))")
-        print("dateTextField: \(String(describing: dateTextField.selectedItem))")
-        print("timeTextField: \(String(describing: timeTextField.selectedItem))")
-        print("dateAndTimeTextField: \(String(describing: dateAndTimeTextField.selectedItem))")
-        print("textTextField: \(String(describing: textTextField.selectedItem))")
+//        self.textTextField
     }
     
     // MARK: - Public Methods
