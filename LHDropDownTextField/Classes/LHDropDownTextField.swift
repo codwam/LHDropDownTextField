@@ -489,8 +489,9 @@ open class LHDropDownTextField: UITextField {
     fileprivate func updateOptionsList() {
         if self.isOptionalDropDown {
             if let itemList = self.itemList {
-                self.pickerItemList = [self.optionalItemText]
-                self.pickerItemList?.append(itemList)
+                var pickerItemList = [self.optionalItemText]
+                pickerItemList.append(contentsOf: itemList)
+                self.pickerItemList = pickerItemList
             } else if let itemListView = self.itemListView {
                 self.pickerItemList = [itemListView]
             }

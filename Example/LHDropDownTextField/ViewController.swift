@@ -57,18 +57,18 @@ final class ViewController: UIViewController {
             textField.inputAccessoryView = toolbar
         }
         
-//        self.textTextField.itemList = [
-//            "You",
-//            "Are",
-//            "a",
-//            "Pig"
-//        ]
-        
-        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        indicator.startAnimating()
-        self.textTextField.itemListView = [
-            indicator
+        self.textTextField.itemList = [
+            "You",
+            "Are",
+            "a",
+            "Pig"
         ]
+        
+//        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+//        indicator.startAnimating()
+//        self.textTextField.itemListView = [
+//            indicator
+//        ]
     }
     
     // MARK: - Event Response
