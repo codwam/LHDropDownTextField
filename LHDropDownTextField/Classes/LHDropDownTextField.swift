@@ -8,12 +8,19 @@
 
 import UIKit
 
+/// 下拉模式
+///
+/// - none: 没有样式，就是个UITextField
+/// - date: 日期
+/// - time: 时间
+/// - dateAndTime: 日期和时间
+/// - mix: 混合模式：text, label, view etc...
 public enum LHDropDownMode: Int {
     case none
     case date
     case time
     case dateAndTime
-    case text
+    case mix
     
     func transToUIDatePickerMode() -> UIDatePickerMode {
         var mode: UIDatePickerMode!
@@ -71,7 +78,8 @@ public protocol LHDropDownTextFieldDataSource : NSObjectProtocol {
 
 open class LHDropDownTextField: UITextField {
     
-    // default is nil. weak reference
+    // MARK: - Delegate & DataSource
+    
     override open var delegate: UITextFieldDelegate? /* LHDropDownTextFieldDelegate? */ {
         get {
             return super.delegate as? LHDropDownTextFieldDelegate
@@ -83,7 +91,7 @@ open class LHDropDownTextField: UITextField {
             super.delegate = newValue
         }
     }
-
+    
     fileprivate var delegateAdapter: LHDropDownTextFieldDelegate? {
         if self.delegate != nil && !(self.delegate is LHDropDownTextFieldDelegate) {
             assert(false, "delegate must be LHDropDownTextFieldDelegate")
@@ -93,14 +101,11 @@ open class LHDropDownTextField: UITextField {
     
     @IBOutlet weak open var dataSource: LHDropDownTextFieldDataSource? // default is nil. weak reference
     
-    open var dropDownMode = LHDropDownMode.none {
-        didSet {
-            self.updateDropDownMode()
-        }
-    }
-    
+    // MARK: - IB Adapter
     // http://stackoverflow.com/questions/27432736/how-to-create-an-ibinspectable-of-type-enum
-    @IBInspectable var dropDownModeAdapter: Int {
+    
+    @IBInspectable
+    var dropDownModeAdapter: Int {
         get {
             return self.dropDownMode.rawValue
         }
@@ -113,11 +118,56 @@ open class LHDropDownTextField: UITextField {
         }
     }
     
-    ///----------------------
-    /// @name Optional
-    ///----------------------
+    @IBInspectable
+    var isOptionalDropDownAdapter: Int {
+        get {
+            return self.isOptionalDropDown ? 1 : 0
+        }
+        set {
+            self.isOptionalDropDown = newValue == 0 ? false : true
+        }
+    }
+    
+    @IBInspectable
+    var adjustPickerLabelFontSizeWidthAdapter: Int {
+        get {
+            return self.adjustPickerLabelFontSizeWidth ? 1 : 0
+        }
+        set {
+            self.adjustPickerLabelFontSizeWidth = newValue == 0 ? false : true
+        }
+    }
+    
+    @IBInspectable
+    var isShowToolbarAdapter: Int {
+        get {
+            return self.isShowToolbar ? 1 : 0
+        }
+        set {
+            self.isShowToolbar = newValue == 0 ? false : true
+        }
+    }
+    
+    // MARK: - Drop Down Appearance
+    
+    open var dropDownMode = LHDropDownMode.none {
+        didSet {
+            self.updateDropDownMode()
+        }
+    }
+    
+    open var dropDownFont = UIFont.boldSystemFont(ofSize: 18)
+    
+    open var dropDownTextColor = UIColor.black
+    
+    open var optionalItemFont = UIFont.boldSystemFont(ofSize: 30)
+    
+    open var optionalItemTextColor = UIColor.lightGray
+    
+    // MARK: - Optional
     
     fileprivate var _optionalItemText: String?
+    /// 可选文本，isOptionalDropDown设置true时，第一个默认显示这个文本
     @IBInspectable
     open var optionalItemText: String {
         get {
@@ -133,74 +183,51 @@ open class LHDropDownTextField: UITextField {
         }
     }
     
+    /// 是否增加可选文本
     open var isOptionalDropDown = true {
         didSet {
             self.updateOptionsList()
         }
     }
     
-    @IBInspectable
-    var isOptionalDropDownAdapter: Int {
-        get {
-            return self.isOptionalDropDown ? 1 : 0
-        }
-        set {
-            self.isOptionalDropDown = newValue == 0 ? false : true
+    // MARK: - Toolbar
+    
+    /// 是否显示Toolbar
+    open var isShowToolbar = false {
+        didSet {
+            self.updateToolbar()
         }
     }
     
-    ///----------------------
-    /// @name DropDown Appearance
-    ///----------------------
-    
-    open var dropDownFont = UIFont.boldSystemFont(ofSize: 18)
-    
-    open var dropDownTextColor = UIColor.black
-    
-    open var optionalItemFont = UIFont.boldSystemFont(ofSize: 30)
-
-    open var optionalItemTextColor = UIColor.lightGray
-    
-    ///----------------------
-    /// @name Title Selection
-    ///----------------------
-    
-    open var selectedItem: String? {
+    fileprivate var _toolbar: UIToolbar?
+    /// 默认Toolbar
+    open var toolbar: UIToolbar {
         get {
-            switch self.dropDownMode {
-            case .none:
-                return super.text
-            case .date, .time, .dateAndTime:
-                return (super.text != nil && !super.text!.isEmpty) ? self.dropDownDateTimeFormatter?.string(from: self.dateTimePicker.date) : nil
-            case .text:
-                var selectedRow = self.pickerView.selectedRow(inComponent: 0)
-                if self.isOptionalDropDown {
-                    selectedRow -= 1
-                }
-                if selectedRow >= 0 {
-                    if let itemList = self.itemList {
-                        return itemList[selectedRow]
-                    }
-                    return nil
-                } else {// 选中 optionalItemText
-                    return nil
-                }
+            if _toolbar == nil {
+                let flexibleButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+                let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(resignFirstResponder))
+                let toolbar = UIToolbar()
+                toolbar.items = [flexibleButton, doneButton]
+                toolbar.sizeToFit()
+                
+                _toolbar = toolbar
             }
+            return _toolbar!
         }
         set {
-            self.selectedItem(selectedItem, animated: false)
+            _toolbar = newValue
+            
+            self.updateToolbar()
         }
     }
     
-    ///-------------------------------
-    /// @name mode: text
-    ///-------------------------------
+    // MARK: - Mode: mix
     
     open var itemList: [String]? {
         didSet {
             self.updateOptionsList()
-
-            self.dropDownMode = .text
+            
+            self.dropDownMode = .mix
             
             self.pickerView.reloadAllComponents()
             
@@ -211,8 +238,8 @@ open class LHDropDownTextField: UITextField {
     open var itemListView: [UIView]? {
         didSet {
             self.updateOptionsList()
-
-            self.dropDownMode = .text
+            
+            self.dropDownMode = .mix
             
             self.selectedRow(self.selectedRow, animated: false)
         }
@@ -241,19 +268,7 @@ open class LHDropDownTextField: UITextField {
         }
     }
     
-    @IBInspectable
-    var adjustPickerLabelFontSizeWidthAdapter: Int {
-        get {
-            return self.adjustPickerLabelFontSizeWidth ? 1 : 0
-        }
-        set {
-            self.adjustPickerLabelFontSizeWidth = newValue == 0 ? false : true
-        }
-    }
-    
-    ///-------------------------------
-    /// @name mode: date & time & dateAndTime
-    ///-------------------------------
+    // MARK: - Mode: date & time & dateAndTime
     
     open var date: Date? {
         get {
@@ -269,43 +284,6 @@ open class LHDropDownTextField: UITextField {
             self.setDate(newValue, animated: false)
         }
     }
-    
-    open var dateComponents: DateComponents? {
-        guard let date = self.date else {
-            return nil
-        }
-        let calender = Calendar.current
-        let unitFlags = Set<Calendar.Component>([.day, .month, .year])
-        return calender.dateComponents(unitFlags, from: date)
-    }
-    
-    open var year: Int? {
-        return self.dateComponents?.year
-    }
-    
-    open var month: Int? {
-        return self.dateComponents?.month
-    }
-    
-    open var day: Int? {
-        return self.dateComponents?.day
-    }
-    
-    open var hour: Int? {
-        return self.dateComponents?.hour
-    }
-    
-    open var minute: Int? {
-        return self.dateComponents?.minute
-    }
-    
-    open var second: Int? {
-        return self.dateComponents?.second
-    }
-    
-    ///-------------------------------
-    /// @name mode: date & time & dateAndTime ( UIDatePicker property )
-    ///-------------------------------
     
     open var datePickerMode: UIDatePickerMode = .date {
         didSet {
@@ -364,7 +342,7 @@ open class LHDropDownTextField: UITextField {
         }
     }
     
-    // MARK: - Private vars
+    // MARK: - Private Properties
     
     fileprivate lazy var pickerView: UIPickerView = {
         let picker = UIPickerView()
@@ -409,6 +387,33 @@ open class LHDropDownTextField: UITextField {
             return super.caretRect(for: position)
         }
         return .zero
+    }
+    
+    open override var text: String? {
+        get {
+            switch self.dropDownMode {
+            case .none:
+                return super.text
+            case .date, .time, .dateAndTime:
+                return (super.text != nil && !super.text!.isEmpty) ? self.dropDownDateTimeFormatter?.string(from: self.dateTimePicker.date) : nil
+            case .mix:
+                var selectedRow = self.pickerView.selectedRow(inComponent: 0)
+                if self.isOptionalDropDown {
+                    selectedRow -= 1
+                }
+                if selectedRow >= 0 {
+                    if let itemList = self.itemList {
+                        return itemList[selectedRow]
+                    }
+                    return nil
+                } else {// 选中 optionalItemText
+                    return nil
+                }
+            }
+        }
+        set {
+            self.selectedItem(text, animated: false)
+        }
     }
     
     // MARK: - Event Response
@@ -459,7 +464,6 @@ open class LHDropDownTextField: UITextField {
     open func setDate(_ date: Date?, animated: Bool) {
         switch self.dropDownMode {
         case .date, .time, .dateAndTime:
-            // FIXME: date == nil???
             self.setSelectedItem(self.dropDownDateTimeFormatter?.string(from: date ?? Date()), animated: animated, shouldNotifyDelegate: false)
         default:
             break
@@ -479,7 +483,7 @@ open class LHDropDownTextField: UITextField {
             if !self.isOptionalDropDown {
                 self.date = self.dateTimePicker.date
             }
-        case .text:
+        case .mix:
             self.inputView = self.pickerView
             
             self.selectedRow(self.selectedRow, animated: true)
@@ -499,13 +503,17 @@ open class LHDropDownTextField: UITextField {
             switch self.dropDownMode {
             case .date, .time, .dateAndTime:
                 self.date = self.dateTimePicker.date
-            case .text:
+            case .mix:
                 self.pickerItemList = self.itemList
                 self.pickerView.reloadAllComponents()
             default:
                 break
             }
         }
+    }
+    
+    fileprivate func updateToolbar() {
+        self.inputAccessoryView = self.isShowToolbar ? self.toolbar : nil
     }
     
     fileprivate func setSelectedItem(_ selectedItem: String?, animated: Bool, shouldNotifyDelegate: Bool) {
@@ -534,7 +542,7 @@ open class LHDropDownTextField: UITextField {
             if shouldNotifyDelegate {
                 self.delegateAdapter?.textField?(self, didSelect: date)
             }
-        case .text:
+        case .mix:
             guard let selectedItem = selectedItem else {
                 return
             }
@@ -571,6 +579,46 @@ open class LHDropDownTextField: UITextField {
         componentsDay.second = componentsTime.second
         
         return Calendar.current.date(from: componentsDay)
+    }
+    
+}
+
+
+// MARK: - DateComponents
+
+extension LHDropDownTextField {
+    
+    open var dateComponents: DateComponents? {
+        guard let date = self.date else {
+            return nil
+        }
+        let calender = Calendar.current
+        let unitFlags = Set<Calendar.Component>([.day, .month, .year])
+        return calender.dateComponents(unitFlags, from: date)
+    }
+    
+    open var year: Int? {
+        return self.dateComponents?.year
+    }
+    
+    open var month: Int? {
+        return self.dateComponents?.month
+    }
+    
+    open var day: Int? {
+        return self.dateComponents?.day
+    }
+    
+    open var hour: Int? {
+        return self.dateComponents?.hour
+    }
+    
+    open var minute: Int? {
+        return self.dateComponents?.minute
+    }
+    
+    open var second: Int? {
+        return self.dateComponents?.second
     }
     
 }
@@ -637,9 +685,9 @@ extension LHDropDownTextField: UIPickerViewDelegate {
             return
         }
         let text = pickerItemList[row]
-
+        
         let canSelect = self.dataSource?.textField?(self, canSelectItem: text) ?? true
-
+        
         if canSelect {
             self.setSelectedItem(text, animated: false, shouldNotifyDelegate: true)
         } else {

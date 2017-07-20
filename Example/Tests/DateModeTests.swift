@@ -39,7 +39,6 @@ class DateModeTests: XCTestCase {
         textField.dropDownMode = .date
         
         XCTAssertTrue(textField.text == nil || textField.text!.isEmpty)
-        XCTAssertTrue(textField.selectedItem == nil || textField.text!.isEmpty)
     }
     
 }

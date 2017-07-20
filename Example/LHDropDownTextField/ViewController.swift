@@ -47,15 +47,16 @@ final class ViewController: UIViewController {
     // MARK: - Common Init
     
     fileprivate func commonInit() {
-        let flexibleButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneClicked(_:)))
-        let toolbar = UIToolbar()
-        toolbar.items = [flexibleButton, doneButton]
-        toolbar.sizeToFit()
-        
-        self.allTextFields.forEach { (textField) in
-            textField.inputAccessoryView = toolbar
-        }
+//        let flexibleButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneClicked(_:)))
+//        let toolbar = UIToolbar()
+//        toolbar.items = [flexibleButton, doneButton]
+//        toolbar.sizeToFit()
+//        
+//        self.allTextFields.forEach { (textField) in
+////            textField.inputAccessoryView = toolbar
+//            textField.isShowToolbar = true
+//        }
         
 //        self.textTextField.itemList = [
 //            "Test",
@@ -72,17 +73,23 @@ final class ViewController: UIViewController {
         ]
     }
     
+    // MARK: - Override
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
     // MARK: - Event Response
     
     @objc
     fileprivate func doneClicked(_ sender: Any) {
 //        self.view.endEditing(true)
         
-        print("noneTextField: \(String(describing: noneTextField.selectedItem))")
-        print("dateTextField: \(String(describing: dateTextField.selectedItem))")
-        print("timeTextField: \(String(describing: timeTextField.selectedItem))")
-        print("dateAndTimeTextField: \(String(describing: dateAndTimeTextField.selectedItem))")
-//        print("textTextField: \(String(describing: textTextField.selectedItem))")
+        print("noneTextField: \(String(describing: noneTextField.text))")
+        print("dateTextField: \(String(describing: dateTextField.text))")
+        print("timeTextField: \(String(describing: timeTextField.text))")
+        print("dateAndTimeTextField: \(String(describing: dateAndTimeTextField.text))")
+//        print("textTextField: \(String(describing: textTextField.text))")
         
         self.textTextField.itemListView = nil
         self.textTextField.itemList = [

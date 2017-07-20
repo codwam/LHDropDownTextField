@@ -14,12 +14,12 @@ LHDropDownTextField
 
 ## TODO
 
-- [ ] 适配text
+- [x] 适配text
 - [ ] 单元测试
-- [x] 日期模式：selectedItem 没有选择不为 nil
+- [x] 日期模式：selectedItem 没有选择不为 nil  (Fixed 2017-7-20)
 - [ ] 测试 LHProposedSelection
 - [ ] 截图
-- [ ] 添加Toolbar
+- [x] 添加Toolbar
 - [ ] 添加注释
 
 ## Example
