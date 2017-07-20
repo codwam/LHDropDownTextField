@@ -171,7 +171,7 @@ open class LHDropDownTextField: UITextField {
             case .none:
                 return super.text
             case .date, .time, .dateAndTime:
-                return self.dropDownDateTimeFormatter?.string(from: self.dateTimePicker.date)
+                return (super.text != nil && !super.text!.isEmpty) ? self.dropDownDateTimeFormatter?.string(from: self.dateTimePicker.date) : nil
             case .text:
                 var selectedRow = self.pickerView.selectedRow(inComponent: 0)
                 if self.isOptionalDropDown {

@@ -16,7 +16,7 @@ LHDropDownTextField
 
 - [ ] 适配text
 - [ ] 单元测试
-- [ ] 日期模式：selectedItem 没有选择不为 nil
+- [x] 日期模式：selectedItem 没有选择不为 nil
 - [ ] 测试 LHProposedSelection
 - [ ] 截图
 - [ ] 添加Toolbar

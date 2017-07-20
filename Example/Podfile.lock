@@ -1,5 +1,5 @@
 PODS:
-  - LHDropDownTextField (0.3.3)
+  - LHDropDownTextField (0.3.4)
 
 DEPENDENCIES:
   - LHDropDownTextField (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  LHDropDownTextField: 0aa1a9f119863f5c090e7111d2f03ce0dc960676
+  LHDropDownTextField: 59a46e2ab64b91cf7ea5fd9dc89b9ee12dea2be9
 
-PODFILE CHECKSUM: 1cb1a22978aad5eac83f59368cc6e98310efa006
+PODFILE CHECKSUM: 379a6fd023f185c2892747bccb5d961812db90e4
 
 COCOAPODS: 1.2.1

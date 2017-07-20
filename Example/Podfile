@@ -1,11 +1,14 @@
-use_frameworks!
+# Uncomment the next line to define a global platform for your project
+platform :ios, '8.0'
 
 target 'LHDropDownTextField_Example' do
-  pod 'LHDropDownTextField', :path => '../'
-
-  target 'LHDropDownTextField_Tests' do
-    inherit! :search_paths
-
+    use_frameworks!
     
-  end
+    pod 'LHDropDownTextField', :path => '../'
+    
+    target 'LHDropDownTextField_Tests' do
+        inherit! :search_paths
+        
+        pod 'LHDropDownTextField', :path => '../'
+    end
 end
